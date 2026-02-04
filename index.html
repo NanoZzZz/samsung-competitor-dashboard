@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samsung Thailand TikTok Live - Competitor Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: #1A8CFF;
+            --primary-coral: #FF6B6B;
+            --bg-main: #F5F7FA;
+            --bg-card: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+            --border-color: #E5E7EB;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-lg: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-card);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            height: 36px;
+        }
+
+        .header-title {
+            flex: 1;
+        }
+
+        .header-title h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .header-title p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Time Filter */
+        .time-filter {
+            background: var(--bg-card);
+            padding: 12px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .time-filter label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .time-btn {
+            padding: 6px 16px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+
+        .time-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .time-btn.active {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            color: white;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--bg-card);
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-btn {
+            padding: 14px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-btn.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+        }
+
+        /* Main Content */
+        .main {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: var(--primary-coral);
+            border-radius: 2px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        /* Samsung Focus Card */
+        .samsung-focus {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #0066CC 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .samsung-focus h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .samsung-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .samsung-metric {
+            text-align: center;
+        }
+
+        .samsung-metric .value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .samsung-metric .label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .samsung-metric .rank {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        /* Metric Cards */
+        .metric-card {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .metric-card .label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .metric-card .value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .metric-card .change {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .metric-card .change.positive {
+            color: #10B981;
+        }
+
+        .metric-card .change.negative {
+            color: var(--primary-coral);
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--border-color);
+            background: var(--bg-main);
+        }
+
+        .data-table td {
+            padding: 12px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table tr:hover {
+            background: var(--bg-main);
+        }
+
+        .data-table .brand-samsung {
+            background: rgba(26, 140, 255, 0.08);
+        }
+
+        .data-table .brand-samsung:hover {
+            background: rgba(26, 140, 255, 0.12);
+        }
+
+        /* Comparison Table */
+        .comparison-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .comparison-header select {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            background: var(--bg-card);
+            min-width: 140px;
+        }
+
+        .comparison-header .vs {
+            font-weight: 700;
+            color: var(--primary-coral);
+            font-size: 16px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .comparison-table th {
+            padding: 12px 16px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            background: var(--bg-main);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .comparison-table th:first-child {
+            text-align: left;
+            color: var(--primary-coral);
+            width: 30%;
+        }
+
+        .comparison-table th:nth-child(2),
+        .comparison-table th:nth-child(3) {
+            width: 35%;
+        }
+
+        .comparison-table th:nth-child(2) {
+            color: var(--primary-blue);
+        }
+
+        .comparison-table td {
+            padding: 12px 16px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .comparison-table .section-header {
+            background: var(--bg-main);
+            font-weight: 600;
+            color: var(--primary-coral);
+        }
+
+        .comparison-table .winner {
+            color: #10B981;
+            font-weight: 600;
+        }
+
+        .comparison-table .loser {
+            color: var(--text-muted);
+        }
+
+        /* KOL Ranking */
+        .kol-ranking {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* KOL Analysis page - unified height */
+        #kol .grid-2 .card {
+            min-height: 420px;
+        }
+
+        #kol .grid-2 .card .chart-container {
+            height: 350px;
+        }
+
+        #kol .kol-ranking {
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        /* Scrollbar styling */
+        #kol .kol-ranking::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #kol .kol-ranking::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        #kol .kol-ranking::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        #kol .kol-ranking::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+
+        .kol-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-main);
+            border-radius: 8px;
+        }
+
+        .kol-rank {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .kol-rank.gold {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .kol-rank.silver {
+            background: linear-gradient(135deg, #C0C0C0, #A0A0A0);
+            color: white;
+        }
+
+        .kol-rank.bronze {
+            background: linear-gradient(135deg, #CD7F32, #8B4513);
+            color: white;
+        }
+
+        .kol-rank.normal {
+            background: var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .kol-info {
+            flex: 1;
+        }
+
+        .kol-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .kol-brands {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .kol-gmv {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        /* Charts Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .chart-container.small {
+            height: 250px;
+        }
+
+        /* Insights */
+        .insight-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--primary-blue);
+            box-shadow: var(--shadow);
+        }
+
+        .insight-card.warning {
+            border-left-color: var(--primary-coral);
+        }
+
+        .insight-card.success {
+            border-left-color: #10B981;
+        }
+
+        .insight-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .insight-content {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .insight-action {
+            margin-top: 12px;
+            padding: 12px;
+            background: var(--bg-main);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .insight-action strong {
+            color: var(--primary-blue);
+        }
+
+        /* Methodology */
+        .methodology {
+            background: var(--bg-main);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .methodology h4 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+
+        .methodology ul {
+            list-style: none;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .methodology li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .methodology li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-coral);
+        }
+
+        /* Brand Tag */
+        .brand-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .brand-tag.samsung { background: #E3F2FD; color: #1565C0; }
+        .brand-tag.xiaomi { background: #FFF3E0; color: #E65100; }
+        .brand-tag.vivo { background: #E8F5E9; color: #2E7D32; }
+        .brand-tag.oppo { background: #F3E5F5; color: #7B1FA2; }
+        .brand-tag.realme { background: #FFF8E1; color: #F9A825; }
+        .brand-tag.infinix { background: #E0F7FA; color: #00838F; }
+        .brand-tag.honor { background: #FCE4EC; color: #C2185B; }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .samsung-metrics { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .samsung-metrics { grid-template-columns: repeat(2, 1fr); }
+            .header { flex-wrap: wrap; }
+            .nav { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img src="anylive.png" alt="Anylive" class="logo">
+        <div class="header-title">
+            <h1>Samsung Thailand TikTok Live</h1>
+            <p>Competitor Analysis Dashboard</p>
+        </div>
+    </header>
+
+    <!-- Time Filter -->
+    <div class="time-filter">
+        <label>Time Range:</label>
+        <button class="time-btn" data-days="7">7 Days</button>
+        <button class="time-btn" data-days="14">14 Days</button>
+        <button class="time-btn" data-days="30">30 Days</button>
+        <button class="time-btn active" data-days="90">90 Days</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <button class="nav-btn active" data-section="overview">Market Overview</button>
+        <button class="nav-btn" data-section="channel">Channel Strategy</button>
+        <button class="nav-btn" data-section="kol">KOL Analysis</button>
+        <button class="nav-btn" data-section="efficiency">Efficiency</button>
+        <button class="nav-btn" data-section="insights">Insights</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Market Overview Section -->
+        <section id="overview" class="section active">
+            <div class="samsung-focus">
+                <h2>Samsung Performance Summary</h2>
+                <div class="samsung-metrics" id="samsung-metrics">
+                    <div class="samsung-metric">
+                        <div class="value" id="samsung-gmv">-</div>
+                        <div class="label">Total GMV</div>
+                        <div class="rank" id="samsung-gmv-rank">Rank #-</div>
+                    </div>
+                    <div class="samsung-metric">
+                        <div class="value" id="samsung-streams">-</div>
+                        <div class="label">Livestreams</div>
+                        <div class="rank" id="samsung-streams-rank">Rank #-</div>
+                    </div>
+                    <div class="samsung-metric">
+                        <div class="value" id="samsung-kols">-</div>
+                        <div class="label">KOL Partners</div>
+                        <div class="rank" id="samsung-kols-rank">Rank #-</div>
+                    </div>
+                    <div class="samsung-metric">
+                        <div class="value" id="samsung-gpm">-</div>
+                        <div class="label">GPM ($/1K Views)</div>
+                        <div class="rank" id="samsung-gpm-rank">Rank #-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">GMV Ranking</div>
+                    <div class="chart-container">
+                        <canvas id="gmv-ranking-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Market Share</div>
+                    <div class="chart-container">
+                        <canvas id="market-share-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Brand Performance Comparison</div>
+                <table class="data-table" id="brand-table">
+                    <thead>
+                        <tr>
+                            <th>Brand</th>
+                            <th>GMV</th>
+                            <th>Streams</th>
+                            <th>Views</th>
+                            <th>Items Sold</th>
+                            <th>KOLs</th>
+                            <th>GPM</th>
+                            <th>Avg GMV/Stream</th>
+                        </tr>
+                    </thead>
+                    <tbody id="brand-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Channel Strategy Section -->
+        <section id="channel" class="section">
+            <!-- 图表先展示 -->
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Official vs KOL GMV Distribution</div>
+                    <div class="chart-container">
+                        <canvas id="channel-gmv-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Channel Strategy Comparison</div>
+                    <div class="chart-container">
+                        <canvas id="channel-ratio-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 对比表格后展示 -->
+            <div class="card">
+                <div class="card-title">Brand-to-Brand Comparison</div>
+                <div class="comparison-header">
+                    <select id="brand-a">
+                        <option value="Samsung">Samsung</option>
+                    </select>
+                    <span class="vs">VS</span>
+                    <select id="brand-b">
+                        <option value="Xiaomi">Xiaomi</option>
+                    </select>
+                </div>
+                <table class="comparison-table" id="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metrics</th>
+                            <th id="brand-a-header">Samsung</th>
+                            <th id="brand-b-header">Xiaomi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparison-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- KOL Analysis Section -->
+        <section id="kol" class="section">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">KOL Count by Brand</div>
+                    <div class="chart-container small">
+                        <canvas id="kol-count-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Cross-Brand Top KOLs</div>
+                    <div class="kol-ranking" id="cross-brand-kols"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Top KOLs by Brand</div>
+                <table class="data-table" id="top-kols-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>KOL Handle</th>
+                            <th>Brand</th>
+                            <th>Streams</th>
+                            <th>Total GMV</th>
+                            <th>Avg GMV/Stream</th>
+                        </tr>
+                    </thead>
+                    <tbody id="top-kols-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Efficiency Section -->
+        <section id="efficiency" class="section">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Efficiency Radar</div>
+                    <div class="chart-container">
+                        <canvas id="efficiency-radar-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">GPM Comparison ($/1K Views)</div>
+                    <div class="chart-container">
+                        <canvas id="gpm-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-title">Avg GMV per Stream</div>
+                    <div class="chart-container small">
+                        <canvas id="avg-gmv-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Avg Views per Stream</div>
+                    <div class="chart-container small">
+                        <canvas id="avg-views-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Avg Duration (minutes)</div>
+                    <div class="chart-container small">
+                        <canvas id="avg-duration-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights Section -->
+        <section id="insights" class="section">
+            <div class="methodology">
+                <h4>Analysis Methodology</h4>
+                <ul>
+                    <li><strong>Market Position:</strong> Ranking based on total GMV, market share, and growth metrics</li>
+                    <li><strong>Channel Strategy:</strong> Comparing official store livestreams vs KOL collaborations (GMV contribution, efficiency)</li>
+                    <li><strong>KOL Analysis:</strong> Evaluating KOL partner count, quality (top KOL contribution), and cross-brand presence</li>
+                    <li><strong>Efficiency Metrics:</strong> GPM (GMV per 1K views), average GMV per stream, conversion rate</li>
+                </ul>
+            </div>
+
+            <div id="insights-container"></div>
+        </section>
+    </main>
+
+    <script>
+        // Global data
+        let rawData = [];
+        let brandSummary = {};
+        let topKolsByBrand = {};
+        let crossBrandKols = [];
+        let officialAccounts = {};
+        let filteredData = [];
+        let currentDays = 90;
+
+        // Brand colors (65% opacity)
+        const brandColors = {
+            'Samsung': 'rgba(26, 140, 255, 0.65)',
+            'Xiaomi': 'rgba(255, 105, 0, 0.65)',
+            'Vivo': 'rgba(76, 175, 80, 0.65)',
+            'Oppo': 'rgba(156, 39, 176, 0.65)',
+            'Realme': 'rgba(255, 193, 7, 0.65)',
+            'Infinix': 'rgba(0, 188, 212, 0.65)',
+            'Honor': 'rgba(233, 30, 99, 0.65)'
+        };
+
+        // Brand colors for radar chart (30% opacity - less overlap)
+        const brandColorsRadar = {
+            'Samsung': 'rgba(26, 140, 255, 0.3)',
+            'Xiaomi': 'rgba(255, 105, 0, 0.3)',
+            'Vivo': 'rgba(76, 175, 80, 0.3)',
+            'Oppo': 'rgba(156, 39, 176, 0.3)',
+            'Realme': 'rgba(255, 193, 7, 0.3)',
+            'Infinix': 'rgba(0, 188, 212, 0.3)',
+            'Honor': 'rgba(233, 30, 99, 0.3)'
+        };
+
+        // Solid brand colors for borders/highlights
+        const brandColorsSolid = {
+            'Samsung': '#1A8CFF',
+            'Xiaomi': '#FF6900',
+            'Vivo': '#4CAF50',
+            'Oppo': '#9C27B0',
+            'Realme': '#FFC107',
+            'Infinix': '#00BCD4',
+            'Honor': '#E91E63'
+        };
+
+        // Chart instances
+        let charts = {};
+
+        // Format helpers
+        function formatCurrency(value) {
+            if (value >= 1000000) return '$' + (value / 1000000).toFixed(2) + 'M';
+            if (value >= 1000) return '$' + (value / 1000).toFixed(1) + 'K';
+            return '$' + value.toFixed(0);
+        }
+
+        function formatNumber(value) {
+            if (value >= 1000000) return (value / 1000000).toFixed(2) + 'M';
+            if (value >= 1000) return (value / 1000).toFixed(1) + 'K';
+            return value.toFixed(0);
+        }
+
+        // Load data
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+
+                rawData = data.raw_data;
+                brandSummary = data.brand_summary;
+                topKolsByBrand = data.top_kols_by_brand;
+                crossBrandKols = data.cross_brand_kols;
+                officialAccounts = data.official_accounts;
+
+                // Populate brand selectors
+                populateBrandSelectors();
+
+                // Initial render
+                filterAndRender();
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        // Filter data by days
+        function filterDataByDays(days) {
+            const now = new Date('2026-02-05');
+            const cutoff = new Date(now);
+            cutoff.setDate(cutoff.getDate() - days);
+
+            return rawData.filter(d => {
+                if (!d.parsed_date) return true; // Include if no date
+                const date = new Date(d.parsed_date);
+                return date >= cutoff && date <= now;
+            });
+        }
+
+        // Calculate summary from filtered data
+        function calculateSummary(data) {
+            const summary = {};
+            const brands = ['Samsung', 'Xiaomi', 'Vivo', 'Oppo', 'Realme', 'Infinix', 'Honor'];
+
+            brands.forEach(brand => {
+                const brandData = data.filter(d => d.brand === brand);
+                if (brandData.length === 0) {
+                    summary[brand] = null;
+                    return;
+                }
+
+                const totalGmv = brandData.reduce((sum, d) => sum + (d.revenue || 0), 0);
+                const totalStreams = brandData.length;
+                const totalViews = brandData.reduce((sum, d) => sum + (d.views || 0), 0);
+                const totalItems = brandData.reduce((sum, d) => sum + (d.items_sold || 0), 0);
+                const totalDuration = brandData.reduce((sum, d) => sum + (d.duration_minutes || 0), 0);
+
+                const kolHandles = new Set(brandData.filter(d => !d.is_official && d.creator_handle).map(d => d.creator_handle));
+                const officialData = brandData.filter(d => d.is_official);
+                const kolData = brandData.filter(d => !d.is_official);
+
+                summary[brand] = {
+                    total_gmv: totalGmv,
+                    total_streams: totalStreams,
+                    total_views: totalViews,
+                    total_items: totalItems,
+                    total_duration_minutes: totalDuration,
+                    kol_count: kolHandles.size,
+                    official_streams: officialData.length,
+                    kol_streams: kolData.length,
+                    official_gmv: officialData.reduce((sum, d) => sum + (d.revenue || 0), 0),
+                    kol_gmv: kolData.reduce((sum, d) => sum + (d.revenue || 0), 0),
+                    avg_gmv_per_stream: totalStreams > 0 ? totalGmv / totalStreams : 0,
+                    avg_views_per_stream: totalStreams > 0 ? totalViews / totalStreams : 0,
+                    avg_duration: totalStreams > 0 ? totalDuration / totalStreams : 0,
+                    gpm: totalViews > 0 ? (totalGmv / totalViews * 1000) : 0,
+                    conversion_rate: totalViews > 0 ? (totalItems / totalViews * 100) : 0
+                };
+            });
+
+            return summary;
+        }
+
+        // Filter and render
+        function filterAndRender() {
+            filteredData = filterDataByDays(currentDays);
+            const summary = calculateSummary(filteredData);
+
+            renderOverview(summary);
+            renderChannel(summary);
+            renderKOL(filteredData);
+            renderEfficiency(summary);
+            renderInsights(summary);
+        }
+
+        // Populate brand selectors
+        function populateBrandSelectors() {
+            const brands = Object.keys(brandSummary).sort((a, b) => brandSummary[b].total_gmv - brandSummary[a].total_gmv);
+            const selectors = ['brand-a', 'brand-b'];
+
+            selectors.forEach(id => {
+                const select = document.getElementById(id);
+                select.innerHTML = brands.map(b => `<option value="${b}">${b}</option>`).join('');
+            });
+
+            document.getElementById('brand-a').value = 'Samsung';
+            document.getElementById('brand-b').value = 'Xiaomi';
+        }
+
+        // Render Overview
+        function renderOverview(summary) {
+            // Sort brands by GMV
+            const sortedBrands = Object.entries(summary)
+                .filter(([_, data]) => data !== null)
+                .sort((a, b) => b[1].total_gmv - a[1].total_gmv);
+
+            const brands = sortedBrands.map(([b]) => b);
+            const samsungData = summary['Samsung'];
+            const samsungRank = brands.indexOf('Samsung') + 1;
+
+            // Samsung Focus Card
+            if (samsungData) {
+                document.getElementById('samsung-gmv').textContent = formatCurrency(samsungData.total_gmv);
+                document.getElementById('samsung-gmv-rank').textContent = `Rank #${samsungRank} of ${brands.length}`;
+
+                document.getElementById('samsung-streams').textContent = formatNumber(samsungData.total_streams);
+                const streamsRank = [...sortedBrands].sort((a, b) => b[1].total_streams - a[1].total_streams).findIndex(([b]) => b === 'Samsung') + 1;
+                document.getElementById('samsung-streams-rank').textContent = `Rank #${streamsRank}`;
+
+                document.getElementById('samsung-kols').textContent = samsungData.kol_count;
+                const kolsRank = [...sortedBrands].sort((a, b) => b[1].kol_count - a[1].kol_count).findIndex(([b]) => b === 'Samsung') + 1;
+                document.getElementById('samsung-kols-rank').textContent = `Rank #${kolsRank}`;
+
+                document.getElementById('samsung-gpm').textContent = '$' + samsungData.gpm.toFixed(2);
+                const gpmRank = [...sortedBrands].sort((a, b) => b[1].gpm - a[1].gpm).findIndex(([b]) => b === 'Samsung') + 1;
+                document.getElementById('samsung-gpm-rank').textContent = `Rank #${gpmRank}`;
+            }
+
+            // GMV Ranking Chart - 统一品牌配色 75% 透明度，Samsung 边框高亮
+            if (charts.gmvRanking) charts.gmvRanking.destroy();
+            charts.gmvRanking = new Chart(document.getElementById('gmv-ranking-chart'), {
+                type: 'bar',
+                data: {
+                    labels: brands,
+                    datasets: [{
+                        data: brands.map(b => summary[b].total_gmv),
+                        backgroundColor: brands.map(b => brandColors[b]),
+                        borderColor: brands.map(b => b === 'Samsung' ? brandColorsSolid['Samsung'] : 'transparent'),
+                        borderWidth: brands.map(b => b === 'Samsung' ? 3 : 0),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => formatCurrency(ctx.raw)
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                callback: v => formatCurrency(v)
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Market Share Chart - Samsung 扇形偏移 + 边框高亮，75% 透明度
+            const totalGmv = brands.reduce((sum, b) => sum + summary[b].total_gmv, 0);
+            const samsungIndex = brands.indexOf('Samsung');
+            if (charts.marketShare) charts.marketShare.destroy();
+            charts.marketShare = new Chart(document.getElementById('market-share-chart'), {
+                type: 'doughnut',
+                data: {
+                    labels: brands,
+                    datasets: [{
+                        data: brands.map(b => summary[b].total_gmv),
+                        backgroundColor: brands.map(b => brandColors[b]),
+                        borderColor: brands.map(b => b === 'Samsung' ? brandColorsSolid['Samsung'] : 'transparent'),
+                        borderWidth: brands.map(b => b === 'Samsung' ? 3 : 0),
+                        offset: brands.map(b => b === 'Samsung' ? 10 : 0)
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right' },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => `${ctx.label}: ${formatCurrency(ctx.raw)} (${(ctx.raw / totalGmv * 100).toFixed(1)}%)`
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Brand Table
+            const tbody = document.getElementById('brand-table-body');
+            tbody.innerHTML = sortedBrands.map(([brand, data]) => `
+                <tr class="${brand === 'Samsung' ? 'brand-samsung' : ''}">
+                    <td><span class="brand-tag ${brand.toLowerCase()}">${brand}</span></td>
+                    <td>${formatCurrency(data.total_gmv)}</td>
+                    <td>${formatNumber(data.total_streams)}</td>
+                    <td>${formatNumber(data.total_views)}</td>
+                    <td>${formatNumber(data.total_items)}</td>
+                    <td>${data.kol_count}</td>
+                    <td>$${data.gpm.toFixed(2)}</td>
+                    <td>${formatCurrency(data.avg_gmv_per_stream)}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Channel Strategy
+        function renderChannel(summary) {
+            updateComparison(summary);
+
+            // Sort brands by GMV
+            const brands = Object.entries(summary)
+                .filter(([_, data]) => data !== null)
+                .sort((a, b) => b[1].total_gmv - a[1].total_gmv)
+                .map(([b]) => b);
+
+            // Channel GMV Chart (Stacked)
+            if (charts.channelGmv) charts.channelGmv.destroy();
+            charts.channelGmv = new Chart(document.getElementById('channel-gmv-chart'), {
+                type: 'bar',
+                data: {
+                    labels: brands,
+                    datasets: [
+                        {
+                            label: 'Official',
+                            data: brands.map(b => summary[b].official_gmv),
+                            backgroundColor: '#1A8CFF'
+                        },
+                        {
+                            label: 'KOL',
+                            data: brands.map(b => summary[b].kol_gmv),
+                            backgroundColor: '#FF6B6B'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true },
+                        y: {
+                            stacked: true,
+                            ticks: { callback: v => formatCurrency(v) }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => `${ctx.dataset.label}: ${formatCurrency(ctx.raw)}`
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Channel Ratio Chart
+            if (charts.channelRatio) charts.channelRatio.destroy();
+            charts.channelRatio = new Chart(document.getElementById('channel-ratio-chart'), {
+                type: 'bar',
+                data: {
+                    labels: brands,
+                    datasets: [
+                        {
+                            label: 'Official %',
+                            data: brands.map(b => {
+                                const total = summary[b].official_streams + summary[b].kol_streams;
+                                return total > 0 ? (summary[b].official_streams / total * 100) : 0;
+                            }),
+                            backgroundColor: '#1A8CFF'
+                        },
+                        {
+                            label: 'KOL %',
+                            data: brands.map(b => {
+                                const total = summary[b].official_streams + summary[b].kol_streams;
+                                return total > 0 ? (summary[b].kol_streams / total * 100) : 0;
+                            }),
+                            backgroundColor: '#FF6B6B'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true },
+                        y: {
+                            stacked: true,
+                            max: 100,
+                            ticks: { callback: v => v + '%' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update comparison table
+        function updateComparison(summary) {
+            const brandA = document.getElementById('brand-a').value;
+            const brandB = document.getElementById('brand-b').value;
+
+            document.getElementById('brand-a-header').textContent = brandA;
+            document.getElementById('brand-b-header').textContent = brandB;
+
+            const dataA = summary[brandA];
+            const dataB = summary[brandB];
+
+            if (!dataA || !dataB) return;
+
+            const metrics = [
+                { section: 'Basic Metrics' },
+                { name: 'KOL Partners', a: dataA.kol_count, b: dataB.kol_count, format: 'number' },
+                { name: 'Official Streams', a: dataA.official_streams, b: dataB.official_streams, format: 'number' },
+                { name: 'KOL Streams', a: dataA.kol_streams, b: dataB.kol_streams, format: 'number' },
+                { name: 'Official Ratio', a: dataA.official_streams / (dataA.official_streams + dataA.kol_streams) * 100, b: dataB.official_streams / (dataB.official_streams + dataB.kol_streams) * 100, format: 'percent' },
+                { name: 'KOL Ratio', a: dataA.kol_streams / (dataA.official_streams + dataA.kol_streams) * 100, b: dataB.kol_streams / (dataB.official_streams + dataB.kol_streams) * 100, format: 'percent' },
+                { section: 'GMV Metrics' },
+                { name: 'Official GMV', a: dataA.official_gmv, b: dataB.official_gmv, format: 'currency' },
+                { name: 'KOL GMV', a: dataA.kol_gmv, b: dataB.kol_gmv, format: 'currency' },
+                { name: 'Total GMV', a: dataA.total_gmv, b: dataB.total_gmv, format: 'currency' },
+                { section: 'Efficiency Metrics' },
+                { name: 'Avg GMV/Stream', a: dataA.avg_gmv_per_stream, b: dataB.avg_gmv_per_stream, format: 'currency' },
+                { name: 'GPM ($/1K Views)', a: dataA.gpm, b: dataB.gpm, format: 'gpm' },
+                { section: 'Duration Metrics' },
+                { name: 'Total Duration', a: dataA.total_duration_minutes / 60, b: dataB.total_duration_minutes / 60, format: 'hours' },
+                { name: 'Avg Duration/Stream', a: dataA.avg_duration, b: dataB.avg_duration, format: 'minutes' },
+                { section: 'Audience Metrics' },
+                { name: 'Total Views', a: dataA.total_views, b: dataB.total_views, format: 'number' },
+                { name: 'Avg Views/Stream', a: dataA.avg_views_per_stream, b: dataB.avg_views_per_stream, format: 'number' },
+                { name: 'Items Sold', a: dataA.total_items, b: dataB.total_items, format: 'number' }
+            ];
+
+            const tbody = document.getElementById('comparison-body');
+            tbody.innerHTML = metrics.map(m => {
+                if (m.section) {
+                    return `<tr class="section-header"><td colspan="3">${m.section}</td></tr>`;
+                }
+
+                let valA, valB;
+                switch (m.format) {
+                    case 'currency':
+                        valA = formatCurrency(m.a);
+                        valB = formatCurrency(m.b);
+                        break;
+                    case 'percent':
+                        valA = m.a.toFixed(1) + '%';
+                        valB = m.b.toFixed(1) + '%';
+                        break;
+                    case 'gpm':
+                        valA = '$' + m.a.toFixed(2);
+                        valB = '$' + m.b.toFixed(2);
+                        break;
+                    case 'hours':
+                        valA = (m.a / 1000).toFixed(1) + 'Kh';
+                        valB = (m.b / 1000).toFixed(1) + 'Kh';
+                        break;
+                    case 'minutes':
+                        valA = Math.round(m.a) + ' min';
+                        valB = Math.round(m.b) + ' min';
+                        break;
+                    default:
+                        valA = formatNumber(m.a);
+                        valB = formatNumber(m.b);
+                }
+
+                const aWins = m.a > m.b;
+                const classA = aWins ? 'winner' : 'loser';
+                const classB = !aWins ? 'winner' : 'loser';
+
+                return `<tr>
+                    <td>${m.name}</td>
+                    <td class="${classA}">${valA}</td>
+                    <td class="${classB}">${valB}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        // Render KOL Analysis
+        function renderKOL(data) {
+            // Calculate KOL counts from filtered data
+            const kolCounts = {};
+            const brands = ['Samsung', 'Xiaomi', 'Vivo', 'Oppo', 'Realme', 'Infinix', 'Honor'];
+
+            brands.forEach(brand => {
+                const brandData = data.filter(d => d.brand === brand && !d.is_official && d.creator_handle);
+                const kolHandles = new Set(brandData.map(d => d.creator_handle));
+                kolCounts[brand] = kolHandles.size;
+            });
+
+            const sortedByKol = Object.entries(kolCounts).sort((a, b) => b[1] - a[1]);
+
+            // KOL Count Chart - 统一品牌配色 65% 透明度
+            if (charts.kolCount) charts.kolCount.destroy();
+            charts.kolCount = new Chart(document.getElementById('kol-count-chart'), {
+                type: 'bar',
+                data: {
+                    labels: sortedByKol.map(([b]) => b),
+                    datasets: [{
+                        data: sortedByKol.map(([_, c]) => c),
+                        backgroundColor: sortedByKol.map(([b]) => brandColors[b]),
+                        borderColor: sortedByKol.map(([b]) => b === 'Samsung' ? brandColorsSolid['Samsung'] : 'transparent'),
+                        borderWidth: sortedByKol.map(([b]) => b === 'Samsung' ? 3 : 0),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Calculate Cross-Brand KOLs from filtered data (dynamic calculation)
+            const kolBrandMap = {};
+            data.forEach(item => {
+                const handle = item.creator_handle;
+                const brand = item.brand;
+                const gmv = item.revenue || 0;
+
+                // Skip official accounts and empty handles
+                if (!handle || item.is_official) return;
+
+                if (!kolBrandMap[handle]) {
+                    kolBrandMap[handle] = { brands: new Set(), total_gmv: 0 };
+                }
+                kolBrandMap[handle].brands.add(brand);
+                kolBrandMap[handle].total_gmv += gmv;
+            });
+
+            // Filter for KOLs working with multiple brands
+            const filteredCrossBrandKols = Object.entries(kolBrandMap)
+                .filter(([_, data]) => data.brands.size > 1)
+                .map(([handle, data]) => ({
+                    handle,
+                    brands: Array.from(data.brands),
+                    total_gmv: data.total_gmv,
+                    brand_count: data.brands.size
+                }))
+                .sort((a, b) => b.total_gmv - a.total_gmv);
+
+            // Cross-brand KOLs - render with filtered data
+            const container = document.getElementById('cross-brand-kols');
+            if (filteredCrossBrandKols.length === 0) {
+                container.innerHTML = '<div class="kol-item" style="justify-content: center; color: var(--text-secondary);">No cross-brand KOLs in selected time range</div>';
+            } else {
+                container.innerHTML = filteredCrossBrandKols.slice(0, 8).map((kol, i) => {
+                    const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'normal';
+                    return `
+                        <div class="kol-item">
+                            <div class="kol-rank ${rankClass}">${i + 1}</div>
+                            <div class="kol-info">
+                                <div class="kol-name">@${kol.handle}</div>
+                                <div class="kol-brands">${kol.brands.join(', ')} (${kol.brand_count} brands)</div>
+                            </div>
+                            <div class="kol-gmv">${formatCurrency(kol.total_gmv)}</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Calculate Top KOLs by Brand from filtered data (dynamic calculation)
+            const filteredTopKolsByBrand = {};
+            brands.forEach(brand => {
+                const kolData = {};
+                data
+                    .filter(d => d.brand === brand && !d.is_official && d.creator_handle)
+                    .forEach(d => {
+                        const handle = d.creator_handle;
+                        if (!kolData[handle]) {
+                            kolData[handle] = { handle, brand, total_gmv: 0, total_streams: 0 };
+                        }
+                        kolData[handle].total_gmv += d.revenue || 0;
+                        kolData[handle].total_streams += 1;
+                    });
+
+                filteredTopKolsByBrand[brand] = Object.values(kolData)
+                    .sort((a, b) => b.total_gmv - a.total_gmv)
+                    .slice(0, 5);
+            });
+
+            // Top KOLs Table - render with filtered data
+            const topKols = [];
+            Object.entries(filteredTopKolsByBrand).forEach(([brand, kols]) => {
+                kols.slice(0, 3).forEach((kol, i) => {
+                    topKols.push({ ...kol, rank: i + 1 });
+                });
+            });
+            topKols.sort((a, b) => b.total_gmv - a.total_gmv);
+
+            const tbody = document.getElementById('top-kols-body');
+            tbody.innerHTML = topKols.slice(0, 20).map((kol, i) => `
+                <tr class="${kol.brand === 'Samsung' ? 'brand-samsung' : ''}">
+                    <td>${i + 1}</td>
+                    <td>@${kol.handle}</td>
+                    <td><span class="brand-tag ${kol.brand.toLowerCase()}">${kol.brand}</span></td>
+                    <td>${kol.total_streams}</td>
+                    <td>${formatCurrency(kol.total_gmv)}</td>
+                    <td>${formatCurrency(kol.total_gmv / kol.total_streams)}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Efficiency
+        function renderEfficiency(summary) {
+            const brands = Object.entries(summary)
+                .filter(([_, data]) => data !== null)
+                .sort((a, b) => b[1].total_gmv - a[1].total_gmv)
+                .map(([b]) => b);
+
+            // Radar Chart
+            const maxGpm = Math.max(...brands.map(b => summary[b].gpm));
+            const maxAvgGmv = Math.max(...brands.map(b => summary[b].avg_gmv_per_stream));
+            const maxAvgViews = Math.max(...brands.map(b => summary[b].avg_views_per_stream));
+            const maxKols = Math.max(...brands.map(b => summary[b].kol_count));
+            const maxConv = Math.max(...brands.map(b => summary[b].conversion_rate));
+
+            if (charts.radar) charts.radar.destroy();
+            charts.radar = new Chart(document.getElementById('efficiency-radar-chart'), {
+                type: 'radar',
+                data: {
+                    labels: ['GPM', 'Avg GMV/Stream', 'Avg Views', 'KOL Count', 'Conversion'],
+                    datasets: brands.slice(0, 4).map(brand => ({
+                        label: brand,
+                        data: [
+                            summary[brand].gpm / maxGpm * 100,
+                            summary[brand].avg_gmv_per_stream / maxAvgGmv * 100,
+                            summary[brand].avg_views_per_stream / maxAvgViews * 100,
+                            summary[brand].kol_count / maxKols * 100,
+                            summary[brand].conversion_rate / maxConv * 100
+                        ],
+                        borderColor: brandColorsSolid[brand],
+                        backgroundColor: brandColorsRadar[brand],
+                        pointBackgroundColor: brandColorsSolid[brand],
+                        borderWidth: brand === 'Samsung' ? 3 : 2
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // GPM Chart - 统一品牌配色 75% 透明度
+            const sortedByGpm = [...brands].sort((a, b) => summary[b].gpm - summary[a].gpm);
+            if (charts.gpm) charts.gpm.destroy();
+            charts.gpm = new Chart(document.getElementById('gpm-chart'), {
+                type: 'bar',
+                data: {
+                    labels: sortedByGpm,
+                    datasets: [{
+                        data: sortedByGpm.map(b => summary[b].gpm),
+                        backgroundColor: sortedByGpm.map(b => brandColors[b]),
+                        borderColor: sortedByGpm.map(b => b === 'Samsung' ? brandColorsSolid['Samsung'] : 'transparent'),
+                        borderWidth: sortedByGpm.map(b => b === 'Samsung' ? 3 : 0),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => '$' + ctx.raw.toFixed(2)
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Avg GMV Chart - 统一品牌配色 75% 透明度
+            const sortedByAvgGmv = [...brands].sort((a, b) => summary[b].avg_gmv_per_stream - summary[a].avg_gmv_per_stream);
+            if (charts.avgGmv) charts.avgGmv.destroy();
+            charts.avgGmv = new Chart(document.getElementById('avg-gmv-chart'), {
+                type: 'bar',
+                data: {
+                    labels: sortedByAvgGmv,
+                    datasets: [{
+                        data: sortedByAvgGmv.map(b => summary[b].avg_gmv_per_stream),
+                        backgroundColor: sortedByAvgGmv.map(b => brandColors[b]),
+                        borderColor: sortedByAvgGmv.map(b => b === 'Samsung' ? brandColorsSolid['Samsung'] : 'transparent'),
+                        borderWidth: sortedByAvgGmv.map(b => b === 'Samsung' ? 3 : 0),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => formatCurrency(ctx.raw)
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Avg Views Chart - 统一品牌配色 75% 透明度
+            const sortedByAvgViews = [...brands].sort((a, b) => summary[b].avg_views_per_stream - summary[a].avg_views_per_stream);
+            if (charts.avgViews) charts.avgViews.destroy();
+            charts.avgViews = new Chart(document.getElementById('avg-views-chart'), {
+                type: 'bar',
+                data: {
+                    labels: sortedByAvgViews,
+                    datasets: [{
+                        data: sortedByAvgViews.map(b => summary[b].avg_views_per_stream),
+                        backgroundColor: sortedByAvgViews.map(b => brandColors[b]),
+                        borderColor: sortedByAvgViews.map(b => b === 'Samsung' ? brandColorsSolid['Samsung'] : 'transparent'),
+                        borderWidth: sortedByAvgViews.map(b => b === 'Samsung' ? 3 : 0),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => formatNumber(ctx.raw)
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Avg Duration Chart - 统一品牌配色 75% 透明度
+            const sortedByDuration = [...brands].sort((a, b) => summary[b].avg_duration - summary[a].avg_duration);
+            if (charts.avgDuration) charts.avgDuration.destroy();
+            charts.avgDuration = new Chart(document.getElementById('avg-duration-chart'), {
+                type: 'bar',
+                data: {
+                    labels: sortedByDuration,
+                    datasets: [{
+                        data: sortedByDuration.map(b => summary[b].avg_duration),
+                        backgroundColor: sortedByDuration.map(b => brandColors[b]),
+                        borderColor: sortedByDuration.map(b => b === 'Samsung' ? brandColorsSolid['Samsung'] : 'transparent'),
+                        borderWidth: sortedByDuration.map(b => b === 'Samsung' ? 3 : 0),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // Render Insights
+        function renderInsights(summary) {
+            const container = document.getElementById('insights-container');
+            const insights = [];
+
+            // Sort brands by GMV
+            const sortedBrands = Object.entries(summary)
+                .filter(([_, data]) => data !== null)
+                .sort((a, b) => b[1].total_gmv - a[1].total_gmv);
+
+            const samsungData = summary['Samsung'];
+            const topBrand = sortedBrands[0];
+            const secondBrand = sortedBrands[1];
+            const samsungRank = sortedBrands.findIndex(([b]) => b === 'Samsung') + 1;
+
+            // 1. GMV Gap Insight
+            if (samsungRank > 1) {
+                const gap = topBrand[1].total_gmv - samsungData.total_gmv;
+                const gapPercent = (gap / topBrand[1].total_gmv * 100).toFixed(1);
+                insights.push({
+                    type: 'warning',
+                    title: `GMV Gap: Samsung ranks #${samsungRank}`,
+                    content: `Samsung's total GMV (${formatCurrency(samsungData.total_gmv)}) is ${formatCurrency(gap)} behind ${topBrand[0]} (${formatCurrency(topBrand[1].total_gmv)}), a ${gapPercent}% difference.`,
+                    action: `<strong>Recommendation:</strong> Increase livestream frequency and KOL partnerships to close the GMV gap with market leader.`
+                });
+            }
+
+            // 2. KOL Strategy Insight
+            const topKolBrand = [...sortedBrands].sort((a, b) => b[1].kol_count - a[1].kol_count)[0];
+            if (samsungData.kol_count < topKolBrand[1].kol_count / 2) {
+                insights.push({
+                    type: 'warning',
+                    title: 'KOL Partner Gap',
+                    content: `Samsung has ${samsungData.kol_count} KOL partners, significantly less than ${topKolBrand[0]}'s ${topKolBrand[1].kol_count} KOLs. KOL-driven livestreams contribute ${(samsungData.kol_gmv / samsungData.total_gmv * 100).toFixed(1)}% of Samsung's GMV.`,
+                    action: `<strong>Recommendation:</strong> Expand KOL network by recruiting mid-tier KOLs who show good engagement rates. Target at least ${Math.ceil(topKolBrand[1].kol_count / 3)} KOL partners.`
+                });
+            }
+
+            // 3. Livestream Frequency Gap
+            const topStreamsBrand = [...sortedBrands].sort((a, b) => b[1].total_streams - a[1].total_streams)[0];
+            const streamsGap = topStreamsBrand[1].total_streams - samsungData.total_streams;
+            if (streamsGap > samsungData.total_streams) {
+                insights.push({
+                    type: 'warning',
+                    title: 'Livestream Frequency Gap',
+                    content: `Samsung has ${formatNumber(samsungData.total_streams)} livestreams, while ${topStreamsBrand[0]} leads with ${formatNumber(topStreamsBrand[1].total_streams)} streams (${(streamsGap / samsungData.total_streams * 100).toFixed(0)}% more).`,
+                    action: `<strong>Recommendation:</strong> Increase livestream frequency. Consider daily official streams and encourage KOL partners to stream more frequently.`
+                });
+            }
+
+            // 4. Efficiency Strength - GPM
+            const gpmRank = [...sortedBrands].sort((a, b) => b[1].gpm - a[1].gpm).findIndex(([b]) => b === 'Samsung') + 1;
+            if (gpmRank <= 4) {
+                const topGpmBrand = [...sortedBrands].sort((a, b) => b[1].gpm - a[1].gpm)[0];
+                insights.push({
+                    type: 'success',
+                    title: `Strong Monetization: GPM Rank #${gpmRank}`,
+                    content: `Samsung's GPM is $${samsungData.gpm.toFixed(2)} per 1K views (rank #${gpmRank}). Top performer is ${topGpmBrand[0]} at $${topGpmBrand[1].gpm.toFixed(2)}.`,
+                    action: `<strong>Leverage:</strong> High GPM indicates strong product appeal and effective sales conversion. Focus on increasing traffic/reach to maximize this advantage.`
+                });
+            }
+
+            // 5. Avg GMV per Stream - Key Strength
+            const avgGmvRank = [...sortedBrands].sort((a, b) => b[1].avg_gmv_per_stream - a[1].avg_gmv_per_stream).findIndex(([b]) => b === 'Samsung') + 1;
+            if (avgGmvRank <= 2) {
+                insights.push({
+                    type: 'success',
+                    title: `Top Per-Stream Performance: Rank #${avgGmvRank}`,
+                    content: `Samsung leads with ${formatCurrency(samsungData.avg_gmv_per_stream)} average GMV per stream - ${(samsungData.avg_gmv_per_stream / sortedBrands[sortedBrands.length-1][1].avg_gmv_per_stream).toFixed(1)}x higher than the lowest performer.`,
+                    action: `<strong>Leverage:</strong> Samsung's high per-stream efficiency means each additional livestream has significant revenue potential. Quality strategy is working well.`
+                });
+            }
+
+            // 6. Official vs KOL Balance
+            const officialRatio = samsungData.official_streams / (samsungData.official_streams + samsungData.kol_streams) * 100;
+            const kolRatio = 100 - officialRatio;
+            const avgOfficialRatio = sortedBrands.reduce((sum, [_, d]) => sum + d.official_streams / (d.official_streams + d.kol_streams) * 100, 0) / sortedBrands.length;
+
+            insights.push({
+                type: officialRatio > avgOfficialRatio ? 'info' : 'warning',
+                title: 'Channel Mix Analysis',
+                content: `Samsung's official account contributes ${officialRatio.toFixed(1)}% of streams (industry avg: ${avgOfficialRatio.toFixed(1)}%). KOL streams generate ${formatCurrency(samsungData.kol_gmv)} (${(samsungData.kol_gmv / samsungData.total_gmv * 100).toFixed(1)}% of total GMV).`,
+                action: officialRatio > avgOfficialRatio
+                    ? `<strong>Consider:</strong> Samsung has stronger official presence than competitors. Expand KOL partnerships to increase reach while maintaining brand control.`
+                    : `<strong>Opportunity:</strong> Strengthen official account presence for better brand control and consistent content quality.`
+            });
+
+            // 7. Views per Stream Analysis
+            const avgViewsRank = [...sortedBrands].sort((a, b) => b[1].avg_views_per_stream - a[1].avg_views_per_stream).findIndex(([b]) => b === 'Samsung') + 1;
+            const topViewsBrand = [...sortedBrands].sort((a, b) => b[1].avg_views_per_stream - a[1].avg_views_per_stream)[0];
+
+            insights.push({
+                type: avgViewsRank <= 3 ? 'success' : 'warning',
+                title: `Audience Reach: Rank #${avgViewsRank}`,
+                content: `Samsung averages ${formatNumber(samsungData.avg_views_per_stream)} views per stream. ${topViewsBrand[0]} leads with ${formatNumber(topViewsBrand[1].avg_views_per_stream)} views/stream.`,
+                action: avgViewsRank <= 3
+                    ? `<strong>Strength:</strong> Strong audience reach per stream. Leverage this by increasing stream frequency to maximize total viewership.`
+                    : `<strong>Opportunity:</strong> Improve stream discoverability through better titles, thumbnails, and optimal streaming times. Consider cross-promotion with high-reach KOLs.`
+            });
+
+            // 8. Conversion Rate Analysis
+            const convRank = [...sortedBrands].sort((a, b) => b[1].conversion_rate - a[1].conversion_rate).findIndex(([b]) => b === 'Samsung') + 1;
+            const topConvBrand = [...sortedBrands].sort((a, b) => b[1].conversion_rate - a[1].conversion_rate)[0];
+
+            insights.push({
+                type: convRank <= 3 ? 'success' : 'info',
+                title: `Conversion Rate: Rank #${convRank}`,
+                content: `Samsung's view-to-sale conversion is ${samsungData.conversion_rate.toFixed(3)}% (${formatNumber(samsungData.total_items)} items from ${formatNumber(samsungData.total_views)} views). ${topConvBrand[0]} leads at ${topConvBrand[1].conversion_rate.toFixed(3)}%.`,
+                action: convRank <= 3
+                    ? `<strong>Strength:</strong> Effective conversion strategy. Product presentation and pricing appear well-optimized for the TikTok audience.`
+                    : `<strong>Opportunity:</strong> Analyze ${topConvBrand[0]}'s livestream techniques - product demos, limited-time offers, and call-to-action strategies.`
+            });
+
+            // 9. Strategic Summary
+            insights.push({
+                type: 'info',
+                title: 'Strategic Summary',
+                content: `Samsung ranks #${samsungRank} in GMV with strong per-stream efficiency (#${avgGmvRank}). Key strengths: high GPM, quality streams. Key gaps: KOL network (${samsungData.kol_count} vs ${topKolBrand[1].kol_count}), stream frequency.`,
+                action: `<strong>Priority Actions:</strong> 1) Expand KOL partnerships (target 50+ partners) 2) Increase stream frequency by 2-3x 3) Maintain current quality standards that drive high per-stream GMV.`
+            });
+
+            container.innerHTML = insights.map(i => `
+                <div class="insight-card ${i.type}">
+                    <div class="insight-title">${i.title}</div>
+                    <div class="insight-content">${i.content}</div>
+                    <div class="insight-action">${i.action}</div>
+                </div>
+            `).join('');
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.time-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentDays = parseInt(btn.dataset.days);
+                filterAndRender();
+            });
+        });
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.section).classList.add('active');
+            });
+        });
+
+        document.getElementById('brand-a').addEventListener('change', () => {
+            const summary = calculateSummary(filteredData);
+            updateComparison(summary);
+        });
+
+        document.getElementById('brand-b').addEventListener('change', () => {
+            const summary = calculateSummary(filteredData);
+            updateComparison(summary);
+        });
+
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>
